@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>API Call with Key Prompt</title>
+</head>
+<body>
+
+<a href="#" id="apiLink">Click here to make API call</a>
+
+<script>
+document.getElementById("apiLink").addEventListener("click", function(event) {
+    event.preventDefault(); // Prevent default link behavior
+
+    var apiKey = prompt("Please enter your API key:");
+
+    if (apiKey) {
+        var payload = {
+            "name": "act1",
+            "icon_id": "happy-illustration-icon",
+            "track_conversion_value": false,
+            "touch": true,
+            "filterable": true,
+            "visible_in_feeds": true,
+            "display_style": {
+                "type": "activity_attribute",
+                "title": "",
+                "attribute_name": "attr1",
+                "attribute_field_id": ""
+            },
+            "attributes": [
+                {
+                    "name": "attr1",
+                    "display_type": "text"
+                },
+                {
+                    "name": "attr2",
+                    "display_type": "integer",
+                    "field_id": ""
+                },
+                {
+                    "name": "attr3",
+                    "display_type": "single_select",
+                    "field_id": "do-not-map"
+                },
+                {
+                    "name": "attr5",
+                    "display_type": "text",
+                    "field_id": "str::first"
+                }
+            ]
+        };
+
+        // Make API call
+        fetch("https://api.ap3api.com/v1/definitions/activity/create", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + apiKey // Add API key to Authorization header
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Handle response data
+            console.log(data);
+            alert("API call successful!");
+        })
+        .catch(error => {
+            // Handle errors
+            console.error("Error:", error);
+            alert("Error making API call. Please check your API key and try again.");
+        });
+    }
+});
+</script>
+
+</body>
+</html>
