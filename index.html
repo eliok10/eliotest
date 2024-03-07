@@ -57,7 +57,7 @@ document.getElementById("apiLink").addEventListener("click", function(event) {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": "Bearer " + apiKey // Add API key to Authorization header
+                "Authorization": "x-api-key " + apiKey // Add API key to Authorization header
             },
             body: JSON.stringify(payload)
         })
